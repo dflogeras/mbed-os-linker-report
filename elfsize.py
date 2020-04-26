@@ -4,10 +4,17 @@ from __future__ import print_function
 from subprocess import check_output
 from collections import OrderedDict
 from os import path
+from os import environ
 import re, os, json
 
 # arm-none-eabi-nm needs to be in the environment path
 nm = "arm-none-eabi-nm"
+try:
+    nm = os.environ['NM']
+except KeyError:
+    # Keep default
+    pass
+
 nm_opts = "-l -S -C -f sysv"
 default_datafile = "data-flare.js"
 repo_root = path.dirname(path.abspath(__file__))
